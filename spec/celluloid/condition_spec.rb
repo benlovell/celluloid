@@ -52,17 +52,4 @@ describe Celluloid::Condition do
     actor.condition.signal(:example_value)
     future.value.should be(:example_value)
   end
-
-  it "transfers ownership between actors" do
-    another_actor = ConditionExample.new
-    begin
-      future = actor.future(:wait_for_condition)
-      condition = actor.condition
-      condition.owner = another_actor
-      condition.owner.should eq another_actor
-      expect { future.value }.to raise_exception(Celluloid::ConditionError)
-    ensure
-      another_actor.terminate
-    end
-  end
 end

@@ -103,14 +103,14 @@ module Celluloid
         actors.each do |actor|
           begin
             actor.terminate!
-          rescue DeadActorError, MailboxError
+          rescue DeadActorError
           end
         end
 
         actors.each do |actor|
           begin
             Actor.join(actor)
-          rescue DeadActorError, MailboxError
+          rescue DeadActorError
           end
         end
 
